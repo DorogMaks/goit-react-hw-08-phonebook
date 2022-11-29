@@ -11,11 +11,11 @@ export const TitleContacts = styled.h2`
 export const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
-  padding: 16px;
+  padding: 26px;
   max-width: 300px;
   transform: translateY(20px);
-  border: dashed green;
-  border-radius: 10px;
+  border: solid rgb(34, 139, 34);
+  border-radius: 5px;
 `;
 
 export const Button = styled.button`
