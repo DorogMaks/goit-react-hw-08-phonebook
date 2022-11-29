@@ -7,7 +7,7 @@ import { List } from './ContactList.styled';
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filterValue = useSelector(getFilterValue);
-  console.log(filterValue);
+
   const filteredContacts = getFilteredContacts(filterValue, contacts);
 
   return (
