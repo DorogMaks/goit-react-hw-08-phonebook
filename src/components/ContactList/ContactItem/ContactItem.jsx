@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/slices/contactsSlice';
 import { Button, Contact, ListItem } from './ContactItem.styled';
 
-export const ContactItem = ({ contact: { id, name, number } }) => {
+export const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
 
   const onDelContact = contactId => dispatch(deleteContact(contactId));
@@ -21,9 +21,7 @@ export const ContactItem = ({ contact: { id, name, number } }) => {
 };
 
 ContactItem.propTypes = {
-  contact: PropTypes.exact({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-  }),
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
 };
