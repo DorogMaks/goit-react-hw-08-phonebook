@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   padding: 26px;
-  max-width: 300px;
+  max-width: 360px;
   transform: translateY(20px);
   border: solid rgb(34, 139, 34);
   border-radius: 5px;

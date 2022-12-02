@@ -4,7 +4,7 @@ export const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  max-width: 260px;
+  max-width: calc(100% - 25px);
   border: black solid 1px;
   border-radius: 4px;
   padding: 6px;
