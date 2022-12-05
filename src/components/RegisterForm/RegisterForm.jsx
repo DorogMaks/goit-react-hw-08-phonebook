@@ -5,9 +5,11 @@ import { Form, Label } from './RegisterForm.styled';
 export const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
+  const handleSubmit = evt => {
+    evt.preventDefault();
+
+    const form = evt.currentTarget;
+
     dispatch(
       register({
         name: form.elements.name.value,
@@ -15,6 +17,7 @@ export const RegisterForm = () => {
         password: form.elements.password.value,
       })
     );
+
     form.reset();
   };
 

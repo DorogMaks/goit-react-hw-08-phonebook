@@ -5,6 +5,7 @@ import { selectError, selectIsLoading } from 'redux/contacts/selectors';
 import { fetchContacts } from 'redux/contacts/operations';
 import { Section } from 'components/Shared/Section.styled';
 import { Container } from 'components/Shared/Container.styled';
+import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
 
@@ -25,6 +26,7 @@ const Contacts = () => {
 
       <Section>
         <Container>
+          <ContactForm />
           <Filter />
           {isLoading && !error && <b>Request in progress...</b>}
           {error && <b>Ooops, something went wrong</b>}
