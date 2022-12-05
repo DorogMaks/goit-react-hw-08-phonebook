@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { selectError, selectIsLoading } from 'redux/contacts/selectors';
 import { fetchContacts } from 'redux/contacts/operations';
+import { Section } from 'components/Shared/Section.styled';
+import { Container } from 'components/Shared/Container.styled';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
 
-export default function Contacts() {
+const Contacts = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -18,12 +20,19 @@ export default function Contacts() {
   return (
     <>
       <Helmet>
-        <title>Your tasks</title>
+        <title>Your contacts</title>
       </Helmet>
-      <Filter />
-      {isLoading && !error && <b>Request in progress...</b>}
-      {error && <b>Ooops, something went wrong</b>}
-      <ContactList />
+
+      <Section>
+        <Container>
+          <Filter />
+          {isLoading && !error && <b>Request in progress...</b>}
+          {error && <b>Ooops, something went wrong</b>}
+          <ContactList />
+        </Container>
+      </Section>
     </>
   );
-}
+};
+
+export default Contacts;

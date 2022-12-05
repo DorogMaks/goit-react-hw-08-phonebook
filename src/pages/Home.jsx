@@ -1,28 +1,22 @@
 import { Helmet } from 'react-helmet';
+import { Section } from 'components/Shared/Section.styled';
+import { Container } from 'components/Shared/Container.styled';
+import { WelcomeMessage } from 'components/WelcomeMessage/WelcomeMessage';
 
-const styles = {
-  container: {
-    minHeight: 'calc(100vh - 50px)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontWeight: 500,
-    fontSize: 48,
-    textAlign: 'center',
-  },
-};
-
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Helmet>
         <title>Home Page</title>
       </Helmet>
-      <div style={styles.container}>
-        <h1 style={styles.title}>Welcome to your phonebook</h1>
-      </div>
+
+      <Section>
+        <Container>
+          <WelcomeMessage />
+        </Container>
+      </Section>
     </>
   );
-}
+};
+
+export default Home;

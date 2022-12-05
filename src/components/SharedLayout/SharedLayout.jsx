@@ -2,19 +2,37 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AppBar } from '../AppBar/AppBar';
-import { GlobalStyles } from 'components/Shared/GlobalStyles';
+import { FooterMessage } from 'components/FooterMessage/FooterMessage';
+import { GlobalStyles } from 'components/Shared/GlobalStyles.styled';
+import {
+  FooterStyled,
+  HeaderStyled,
+  MainStyled,
+  Wrapper,
+} from './SharedLayout.styled';
 
 export const SharedLayout = () => {
   return (
     <>
       <GlobalStyles />
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 16px' }}>
-        <AppBar />
-        <Suspense fallback={null}>
-          <Outlet />
-        </Suspense>
+
+      <Wrapper>
+        <HeaderStyled>
+          <AppBar />
+        </HeaderStyled>
+
+        <MainStyled>
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
+        </MainStyled>
+
+        <FooterStyled>
+          <FooterMessage />
+        </FooterStyled>
+
         <Toaster position="top-right" reverseOrder={false} />
-      </div>
+      </Wrapper>
     </>
   );
 };

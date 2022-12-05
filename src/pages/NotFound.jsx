@@ -1,14 +1,21 @@
-import { Notification } from 'components/Notification/Notification';
-import { Container } from 'components/Shared/Container.styled';
+import { Helmet } from 'react-helmet';
 import { Section } from 'components/Shared/Section.styled';
+import { Container } from 'components/Shared/Container.styled';
+import { NotFoundMessage } from 'components/NotFoundMessage/NotFoundMessage';
 
 const NotFound = () => {
   return (
-    <Section>
-      <Container>
-        <Notification message="Sorry, we couldn't find that page :(" />
-      </Container>
-    </Section>
+    <>
+      <Helmet>
+        <title>Not Found</title>
+      </Helmet>
+
+      <Section>
+        <Container>
+          <NotFoundMessage />
+        </Container>
+      </Section>
+    </>
   );
 };
 
