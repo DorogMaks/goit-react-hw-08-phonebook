@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { AppBar } from '../AppBar/AppBar';
+import { AppBar } from 'components/AppBar/AppBar';
 import { FooterMessage } from 'components/FooterMessage/FooterMessage';
 import { GlobalStyles } from 'components/Shared/GlobalStyles.styled';
 import {
