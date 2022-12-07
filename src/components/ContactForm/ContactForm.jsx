@@ -2,9 +2,17 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
-import { Button, Form, Input, Label, Span } from './ContactForm.styled';
+import {
+  Button,
+  ButtonClose,
+  Buttons,
+  Form,
+  Input,
+  Label,
+  Span,
+} from './ContactForm.styled';
 
-export const ContactForm = () => {
+export const ContactForm = ({ onClose }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -59,6 +67,7 @@ export const ContactForm = () => {
 
     setName('');
     setNumber('');
+    onClose();
   };
 
   return (
@@ -87,7 +96,12 @@ export const ContactForm = () => {
           onChange={handleСhange}
         />
       </Label>
-      <Button type="submit">Save contact</Button>
+      <Buttons>
+        <Button type="submit">Save contact</Button>
+        <ButtonClose type="button" onClick={onClose}>
+          Cancel
+        </ButtonClose>
+      </Buttons>
     </Form>
   );
 };

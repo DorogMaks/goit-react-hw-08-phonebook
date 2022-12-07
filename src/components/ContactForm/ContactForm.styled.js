@@ -29,8 +29,14 @@ export const Input = styled.input`
   border-radius: 4px;
 `;
 
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+`;
+
 export const Button = styled.button`
-  width: 120px;
+  width: 100px;
   height: 30px;
   background-color: #fff;
   border-radius: 4px;
@@ -42,5 +48,21 @@ export const Button = styled.button`
   :hover {
     color: #fff;
     background-color: green;
+  }
+`;
+
+export const ButtonClose = styled.button`
+  width: 100px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  :hover {
+    color: #fff;
+    background-color: red;
   }
 `;
