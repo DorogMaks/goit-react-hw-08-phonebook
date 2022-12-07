@@ -13,6 +13,13 @@ export const deleteContactSuccessReducer = (state, action) => {
   state.items.splice(index, 1);
 };
 
+export const editContactSuccessReducer = (state, action) => {
+  const index = state.items.findIndex(
+    contact => contact.id === action.payload.id
+  );
+  state.items.splice(index, 1, action.payload);
+};
+
 export const pendingReducer = state => {
   state.isLoading = true;
 };
