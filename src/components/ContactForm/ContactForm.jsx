@@ -38,6 +38,23 @@ export const ContactForm = () => {
       return alert(`${name} is already in contacts`);
     }
 
+    const checkingContact = contacts.reduce(
+      (acc, item) => {
+        if (item.number === number) {
+          acc.checkingName = item.name;
+          acc.status = true;
+        }
+        return acc;
+      },
+      { status: false, checkingName: '' }
+    );
+
+    if (checkingContact.status) {
+      return alert(
+        `Number ${number} is already in contacts \nwith name ${checkingContact.checkingName}`
+      );
+    }
+
     dispatch(addContact({ name, number }));
 
     setName('');
