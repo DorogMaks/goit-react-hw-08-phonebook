@@ -18,7 +18,7 @@ export const EditForm = ({ onClose, id, contactName, contactNumber }) => {
 
   const dispatch = useDispatch();
 
-  const handleСhange = evt => {
+  const handleChange = evt => {
     const { name, value } = evt.target;
 
     switch (name) {
@@ -53,7 +53,7 @@ export const EditForm = ({ onClose, id, contactName, contactNumber }) => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           value={name}
-          onChange={handleСhange}
+          onChange={handleChange}
         />
       </Label>
       <Label>
@@ -65,7 +65,7 @@ export const EditForm = ({ onClose, id, contactName, contactNumber }) => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           value={number}
-          onChange={handleСhange}
+          onChange={handleChange}
         />
       </Label>
       <Buttons>
