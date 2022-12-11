@@ -23,7 +23,7 @@ const contactsInitialState = {
 
 const extraActions = [fetchContacts, addContact, deleteContact, editContact];
 
-const getAtions = type => extraActions.map(action => action[type]);
+const getActions = type => extraActions.map(action => action[type]);
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -34,9 +34,9 @@ const contactsSlice = createSlice({
       .addCase(addContact.fulfilled, addContactSuccessReducer)
       .addCase(deleteContact.fulfilled, deleteContactSuccessReducer)
       .addCase(editContact.fulfilled, editContactSuccessReducer)
-      .addMatcher(isAnyOf(...getAtions('pending')), pendingReducer)
-      .addMatcher(isAnyOf(...getAtions('fulfilled')), fulfilledReducer)
-      .addMatcher(isAnyOf(...getAtions('rejected')), rejectedReducer),
+      .addMatcher(isAnyOf(...getActions('pending')), pendingReducer)
+      .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledReducer)
+      .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer),
 });
 
 export const contactsReducer = contactsSlice.reducer;
