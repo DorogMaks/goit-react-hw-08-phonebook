@@ -34,7 +34,6 @@ const Contacts = () => {
 
       <Section>
         <Container>
-          {/* <ContactForm /> */}
           <Button type="button" onClick={toggleModal}>
             Add contact
           </Button>

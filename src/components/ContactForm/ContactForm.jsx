@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
 import { selectContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
 import {
@@ -43,7 +44,7 @@ export const ContactForm = ({ onClose }) => {
     });
 
     if (checkingName) {
-      return alert(`${name} is already in contacts`);
+      return toast(`${name} is already in contacts`);
     }
 
     const checkingContact = contacts.reduce(
@@ -58,7 +59,7 @@ export const ContactForm = ({ onClose }) => {
     );
 
     if (checkingContact.status) {
-      return alert(
+      return toast(
         `Number ${number} is already in contacts \nwith name ${checkingContact.checkingName}`
       );
     }
