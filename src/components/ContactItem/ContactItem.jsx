@@ -1,42 +1,68 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts/operations';
-import { Modal } from 'components/Modal/Modal';
-import { Button, Contact, ListItem } from './ContactItem.styled';
+import { Divider } from '@mui/material';
+import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
 import { EditForm } from 'components/EditForm/EditForm';
+import { DeleteContactPrompt } from 'components/DeleteContactPrompt/DeleteContactPrompt';
+import { ContactMenu } from 'components/ContactMenu/ContactMenu';
+import {
+  ContactContainer,
+  ListItem,
+  Name,
+  NameContainer,
+  PhoneContainer,
+} from './ContactItemStyled';
+import { Modal } from 'components/Modal/Modal';
 
 export const ContactItem = ({ id, name, number }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const toggleModal = () => {
-    setShowModal(prevState => !prevState);
+  const toggleEditModal = () => {
+    setShowEditModal(prevState => !prevState);
   };
 
-  const dispatch = useDispatch();
-
-  const onDelContact = () => dispatch(deleteContact(id));
+  const toggleDeleteModal = () => {
+    setShowDeleteModal(prevState => !prevState);
+  };
 
   return (
-    <ListItem>
-      <Contact>
-        {name}: {number}
-      </Contact>
-      <div>
-        <Button type="button" onClick={toggleModal}>
-          Edit
-        </Button>
-        <Button type="button" onClick={onDelContact}>
-          Delete
-        </Button>
-      </div>
-      {showModal && (
-        <Modal onClose={toggleModal}>
+    <ListItem isMenuOpened={isMenuOpened}>
+      <ContactContainer>
+        <NameContainer>
+          <Name>{name}</Name>
+          <Divider />
+        </NameContainer>
+        <PhoneContainer>
+          <PhoneAndroidOutlinedIcon color="primary" />
+          {number}
+        </PhoneContainer>
+      </ContactContainer>
+
+      <ContactMenu
+        isOpened={isMenuOpened}
+        setIsOpened={setIsMenuOpened}
+        toggleEditModal={toggleEditModal}
+        toggleDeleteModal={toggleDeleteModal}
+      />
+
+      {showEditModal && (
+        <Modal onClose={toggleEditModal}>
           <EditForm
-            onClose={toggleModal}
+            onClose={toggleEditModal}
             id={id}
             contactName={name}
             contactNumber={number}
+          />
+        </Modal>
+      )}
+      {showDeleteModal && (
+        <Modal onClose={toggleDeleteModal}>
+          <DeleteContactPrompt
+            onClose={toggleDeleteModal}
+            id={id}
+            contactName={name}
           />
         </Modal>
       )}

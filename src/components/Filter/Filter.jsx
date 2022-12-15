@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+import SearchIcon from '@mui/icons-material/Search';
 import { selectFilterValue } from 'redux/contacts/selectors';
 import { setFilterValue } from 'redux/contacts/slices/filterSlice';
-import { Input, Label, Span } from './Filter.styled';
+import { InputBaseStyled, Search, SearchIconWrapper } from './FilterStyled';
 
 export const Filter = () => {
   const filter = useSelector(selectFilterValue);
+
   const dispatch = useDispatch();
 
   const handleFilter = evt => {
@@ -12,9 +14,16 @@ export const Filter = () => {
   };
 
   return (
-    <Label>
-      <Span>Find contacts by name</Span>
-      <Input type="text" value={filter} onChange={handleFilter} />
-    </Label>
+    <Search>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <InputBaseStyled
+        placeholder="Filter…"
+        inputProps={{ 'aria-label': 'Filter' }}
+        value={filter}
+        onChange={handleFilter}
+      />
+    </Search>
   );
 };

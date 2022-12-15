@@ -1,21 +1,20 @@
 import { Helmet } from 'react-helmet';
-import { Section } from 'components/Shared/Section.styled';
-import { Container } from 'components/Shared/Container.styled';
-import { LoginForm } from 'components/LoginForm/LoginForm';
+import { useAuth } from 'hooks';
+import { LoginForm } from 'components/LoginForm';
 
 const Login = () => {
-  return (
-    <>
-      <Helmet>
-        <title>Login</title>
-      </Helmet>
+  const { isRefreshing } = useAuth();
 
-      <Section>
-        <Container>
-          <LoginForm />
-        </Container>
-      </Section>
-    </>
+  return (
+    !isRefreshing && (
+      <>
+        <Helmet>
+          <title>Login</title>
+        </Helmet>
+
+        <LoginForm />
+      </>
+    )
   );
 };
 

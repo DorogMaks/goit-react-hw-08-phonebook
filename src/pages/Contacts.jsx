@@ -1,26 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { selectError, selectIsLoading } from 'redux/contacts/selectors';
+import {
+  selectContacts,
+  selectError,
+  selectIsLoading,
+} from 'redux/contacts/selectors';
 import { fetchContacts } from 'redux/contacts/operations';
-import { Section } from 'components/Shared/Section.styled';
-import { Container } from 'components/Shared/Container.styled';
-import { ContactForm } from 'components/ContactForm/ContactForm';
-import { Filter } from 'components/Filter/Filter';
+import { useAuth } from 'hooks';
 import { ContactList } from 'components/ContactList/ContactList';
-import { Modal } from 'components/Modal/Modal';
-import { Button } from 'components/App/App.styled';
+import { MessageContainer } from 'components/Shared/MessageContainerStyled';
 
 const Contacts = () => {
-  const [showModal, setShowModal] = useState(false);
+  const { user } = useAuth();
 
-  const toggleModal = () => {
-    setShowModal(prevState => !prevState);
-  };
-
-  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -32,22 +30,15 @@ const Contacts = () => {
         <title>Your contacts</title>
       </Helmet>
 
-      <Section>
-        <Container>
-          <Button type="button" onClick={toggleModal}>
-            Add contact
-          </Button>
-          {showModal && (
-            <Modal onClose={toggleModal}>
-              <ContactForm onClose={toggleModal} />
-            </Modal>
-          )}
-          <Filter />
-          {isLoading && !error && <b>Request in progress...</b>}
-          {error && <b>Ooops, something went wrong</b>}
-          <ContactList />
-        </Container>
-      </Section>
+      {error && <b>Ooops, something went wrong</b>}
+      {!isLoading && contacts.length === 0 && (
+        <MessageContainer>
+          Welcome {user.name}!
+          <br />
+          Your phonebook is empty for now
+        </MessageContainer>
+      )}
+      <ContactList />
     </>
   );
 };

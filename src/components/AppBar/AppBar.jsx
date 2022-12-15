@@ -1,19 +1,45 @@
-import { Navigation } from '../Navigation/Navigation';
-import { UserMenu } from '../UserMenu/UserMenu';
-import { AuthNav } from '../AuthNav/AuthNav';
+import { useSelector } from 'react-redux';
 import { useAuth } from 'hooks';
-import { Container } from 'components/Shared/Container.styled';
-import { Wrapper } from './AppBar.styled';
+import { selectIsLoading } from 'redux/contacts/selectors';
+import { AuthNav } from 'components/AuthNav/AuthNav';
+import { UserMenu } from 'components/UserMenu/UserMenu';
+import { ContactsToolbar } from 'components/ContactsToolbar/ContactsToolbar';
+import { CommonLinearProgress } from 'components/Shared/CommonElementsStyled';
+import {
+  ContactsToolbarContainer,
+  UnauthorizedPageLogo,
+  AuthorizedPageLogo,
+  AppBarStyled,
+  PageLogoText,
+  PhoneIconStyled,
+} from './AppBarStyled';
 
 export const AppBar = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isRefreshing } = useAuth();
+  const isLoading = useSelector(selectIsLoading);
 
   return (
-    <Container>
-      <Wrapper>
-        <Navigation />
-        {isLoggedIn ? <UserMenu /> : <AuthNav />}
-      </Wrapper>
-    </Container>
+    <AppBarStyled>
+      {isLoggedIn ? (
+        <AuthorizedPageLogo>
+          <PhoneIconStyled />
+          <PageLogoText>Phonebook</PageLogoText>
+        </AuthorizedPageLogo>
+      ) : (
+        <UnauthorizedPageLogo>
+          <PhoneIconStyled />
+          <PageLogoText>Phonebook</PageLogoText>
+        </UnauthorizedPageLogo>
+      )}
+
+      {isLoggedIn && !isRefreshing ? (
+        <ContactsToolbarContainer>
+          <ContactsToolbar />
+        </ContactsToolbarContainer>
+      ) : null}
+
+      {isLoggedIn ? <UserMenu /> : <AuthNav />}
+      <CommonLinearProgress isvisible={isRefreshing || isLoading ? '1' : '0'} />
+    </AppBarStyled>
   );
 };

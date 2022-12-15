@@ -1,10 +1,5 @@
-import { Container } from 'components/Shared/Container.styled';
-import { Text } from './FooterMessage.styled';
+import { Text } from './FooterMessageStyled';
 
 export const FooterMessage = () => {
-  return (
-    <Container>
-      <Text>&copy; 2022 | Created by Maksym Dorohokuplia</Text>
-    </Container>
-  );
+  return <Text>&copy; 2022 | Created by Maksym Dorohokuplia</Text>;
 };

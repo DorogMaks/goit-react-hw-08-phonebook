@@ -1,55 +1,45 @@
 import { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import { useAuth } from 'hooks';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { GlobalStyles } from '@mui/material';
 import { refreshUser } from 'redux/auth/operations';
-import { SharedLayout } from 'components/SharedLayout/SharedLayout';
-import { RestrictedRoute } from 'components/RestrictedRoute';
+import { Layout } from 'components/Layout';
 import { PrivateRoute } from 'components/PrivateRoute';
+import { RestrictedRoute } from 'components/RestrictedRoute';
+import { globalStyles } from 'components/App/helpers/globalStyles';
 
-const HomePage = lazy(() => import('pages/Home'));
+const ContactsPage = lazy(() => import('pages/Contacts'));
 const RegisterPage = lazy(() => import('pages/Register'));
 const LoginPage = lazy(() => import('pages/Login'));
-const ContactsPage = lazy(() => import('pages/Contacts'));
-const NotFoundPage = lazy(() => import('pages/NotFound'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return isRefreshing ? (
-    <b>Refreshing contacts...</b>
-  ) : (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<HomePage />} />
-        <Route
-          path="/register"
-          element={
-            <RestrictedRoute
-              redirectTo="/contacts"
-              component={<RegisterPage />}
-            />
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
-          }
-        />
-        <Route
-          path="/contacts"
-          element={
-            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+  return (
+    <>
+      <GlobalStyles styles={globalStyles} />
+
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={<PrivateRoute component={<ContactsPage />} />}
+          />
+          <Route
+            path="/register"
+            element={<RestrictedRoute component={<RegisterPage />} />}
+          />
+          <Route
+            path="/login"
+            element={<RestrictedRoute component={<LoginPage />} />}
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </>
   );
 };
